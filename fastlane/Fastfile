@@ -20,6 +20,10 @@ before_all do
 end
 
 platform :ios do
+  before_all do
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+  end
+  
   lane :beta do
     build_app(
       scheme: "FastlaneDemo",
@@ -27,6 +31,20 @@ platform :ios do
       include_bitcode: true
     )
   end
+
+  after_all do |lane|
+    slack(
+      message: "Successed"
+    )
+  end
+
+  error do |lane, exception|
+    slack(
+      message: exception.message,
+      success: false
+    )
+  end
+
   # private_lane :update_version do
   #   app_store_version = get_app_store_version_number(bunder_id: 'FastlaneDemo')
   #   plist_version = get_version_number_from_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj')
