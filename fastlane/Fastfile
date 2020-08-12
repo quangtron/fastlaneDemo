@@ -76,7 +76,7 @@ platform :android do
   end
 
   lane :deploy do
-    # gradle(task: "clean assembleRelease", project_dir: 'android/')
+    gradle(task: "clean assembleRelease")
   end
 
   after_all do |lane|
