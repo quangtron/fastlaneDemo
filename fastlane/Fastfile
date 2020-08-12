@@ -13,8 +13,6 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-default_platform(:ios)
-
 before_all do
   ensure_git_branch
   ensure_git_status_clean
@@ -23,9 +21,11 @@ end
 
 platform :ios do
   lane :beta do
-    build_app(scheme: "FastlaneDemo",
+    build_app(
+      scheme: "FastlaneDemo",
       workspace: "./ios/FastlaneDemo.xcworkspace",
-      include_bitcode: true)
+      include_bitcode: true
+    )
   end
   # private_lane :update_version do
   #   app_store_version = get_app_store_version_number(bunder_id: 'FastlaneDemo')
@@ -50,4 +50,28 @@ platform :ios do
   #   commit_version_bump(message: 'bump build')
   #   push_to_git_remote
   # end
+end
+
+platform :android do
+  before_all
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+  end
+
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+  end
+
+  after_all do |lane|
+    slack(
+      message: "Successed"
+    )
+  end
+
+  error do |lane, exception|
+    slack(
+      message: exception.message,
+      success: false
+    )
+  end
+
 end
