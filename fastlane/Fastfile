@@ -22,9 +22,21 @@ before_all do
 end
 
 platform :ios do
+  private_lane :update_version do
+    app_store_version = get_app_store_version_number(bunder_id: 'FastlaneDemo')
+    plist_version = get_version_number_from_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj')
+    if Gem::Version.new(plist_version.to_f) == Gem::Version.new(app_store_version.to_f)
+      UI.message "bumping minor"
+      increment_version_number_in_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj', bump_type: 'minor')
+    else
+      UI.message "bumping patch"
+      increment_version_number_in_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj', bump_type: 'patch')
+    end
+  end
+
   private_lane :staging_build do
-    increment_build_number_in_list(xcodeproj: './FastlaneDemo.xcodeproj', target: 'FastlaneDemo')
-    gym(scheme: 'FastlaneDemo', workspace: './FastlaneDemo.xcworkspace')
+    increment_build_number_in_list(xcodeproj: './ios/FastlaneDemo.xcodeproj', target: 'FastlaneDemo')
+    gym(scheme: 'FastlaneDemo', workspace: './ios/FastlaneDemo.xcworkspace')
   end
 
   lane :beta do
