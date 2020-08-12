@@ -15,15 +15,22 @@
 
 default_platform(:ios)
 
+before_all do
+  ensure_git_branch
+  ensure_git_status_clean
+  git_pull
+end
+
 platform :ios do
   private_lane :staging_build do
     increment_build_number_in_list(xcodeproj: './FastlaneDemo.xcodeproj', target: 'FastlaneDemo')
     gym(scheme: 'FastlaneDemo', workspace: './FastlaneDemo.xcworkspace')
   end
 
-  lane: beta do
+  lane :beta do
     staging_build
     upload_to_testflight(username: 'haquangtrong.ton@gmail.com', app_identifier: 'FastlaneDemo')
     commit_version_bump(message: 'bump build')
-    
+    push_to_git_remote
+  end
 end
