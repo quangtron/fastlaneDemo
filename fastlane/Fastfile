@@ -23,7 +23,9 @@ end
 
 platform :ios do
   lane :beta do
-    build_app(scheme: "FastlaneDemo")
+    build_app(scheme: "FastlaneDemo",
+      workspace: "./ios/FastlaneDemo.xcworkspace",
+      include_bitcode: true)
   end
   # private_lane :update_version do
   #   app_store_version = get_app_store_version_number(bunder_id: 'FastlaneDemo')
