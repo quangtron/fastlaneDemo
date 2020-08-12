@@ -41,7 +41,7 @@ platform :ios do
 
   lane :beta do
     staging_build
-    upload_to_testflight(username: 'haquangtrong.ton@gmail.com', app_identifier: 'FastlaneDemo')
+    upload_to_testflight(username: 'haquangtrong.ton@gmail.com', app_identifier: 'com.ton.FastlaneDemo')
     commit_version_bump(message: 'bump build')
     push_to_git_remote
   end
