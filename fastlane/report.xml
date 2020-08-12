@@ -5,27 +5,27 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000316">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000375">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: ensure_git_branch" time="0.01429">
+      <testcase classname="fastlane.lanes" name="1: ensure_git_branch" time="0.017409">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: ensure_git_status_clean" time="0.017711">
+      <testcase classname="fastlane.lanes" name="2: ensure_git_status_clean" time="0.017103">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: git_pull" time="2.041105">
+      <testcase classname="fastlane.lanes" name="3: git_pull" time="2.304529">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: Switch to ios staging_build lane" time="0.000243">
+      <testcase classname="fastlane.lanes" name="4: Switch to ios staging_build lane" time="0.000246">
         
       </testcase>
     
