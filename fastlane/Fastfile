@@ -21,7 +21,7 @@ end
 
 platform :ios do
   before_all do
-    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   lane :beta do
@@ -72,7 +72,7 @@ end
 
 platform :android do
   before_all do
-    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   lane :deploy do
