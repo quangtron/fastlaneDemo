@@ -22,27 +22,30 @@ before_all do
 end
 
 platform :ios do
-  private_lane :update_version do
-    app_store_version = get_app_store_version_number(bunder_id: 'FastlaneDemo')
-    plist_version = get_version_number_from_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj')
-    if Gem::Version.new(plist_version.to_f) == Gem::Version.new(app_store_version.to_f)
-      UI.message "bumping minor"
-      increment_version_number_in_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj', bump_type: 'minor')
-    else
-      UI.message "bumping patch"
-      increment_version_number_in_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj', bump_type: 'patch')
-    end
-  end
-
-  private_lane :staging_build do
-    increment_build_number(xcodeproj: './ios/FastlaneDemo.xcodeproj', build_number: '75')
-    gym(scheme: 'FastlaneDemo', workspace: './ios/FastlaneDemo.xcworkspace')
-  end
-
   lane :beta do
-    staging_build
-    upload_to_testflight(username: 'haquangtrong.ton@gmail.com', app_identifier: 'com.ton.FastlaneDemo')
-    commit_version_bump(message: 'bump build')
-    push_to_git_remote
+    build_app(scheme: "FastlaneDemo")
   end
+  # private_lane :update_version do
+  #   app_store_version = get_app_store_version_number(bunder_id: 'FastlaneDemo')
+  #   plist_version = get_version_number_from_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj')
+  #   if Gem::Version.new(plist_version.to_f) == Gem::Version.new(app_store_version.to_f)
+  #     UI.message "bumping minor"
+  #     increment_version_number_in_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj', bump_type: 'minor')
+  #   else
+  #     UI.message "bumping patch"
+  #     increment_version_number_in_plist(xcodeproj: './ios/FastlaneDemo.xcodeproj', bump_type: 'patch')
+  #   end
+  # end
+
+  # private_lane :staging_build do
+  #   increment_build_number(xcodeproj: './ios/FastlaneDemo.xcodeproj', build_number: '75')
+  #   gym(scheme: 'FastlaneDemo', workspace: './ios/FastlaneDemo.xcworkspace')
+  # end
+
+  # lane :beta do
+  #   staging_build
+  #   upload_to_testflight(username: 'haquangtrong.ton@gmail.com', app_identifier: 'com.ton.FastlaneDemo')
+  #   commit_version_bump(message: 'bump build')
+  #   push_to_git_remote
+  # end
 end
